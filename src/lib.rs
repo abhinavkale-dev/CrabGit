@@ -37,12 +37,6 @@ pub struct Commit {
    pub timestamp: DateTime<Utc>,
 }
 
-#[derive(Debug, Clone)]
-pub struct Repository {
-    pub git_dir: PathBuf,
-    pub work_dir: PathBuf,
-}
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Index {
     pub entries: HashMap<String, IndexEntry>,
@@ -53,6 +47,12 @@ pub struct IndexEntry {
     pub hash: String,
     pub mode: String,
     pub path: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct Repository {
+    pub git_dir: PathBuf,
+    pub work_dir: PathBuf,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
