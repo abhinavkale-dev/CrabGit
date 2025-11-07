@@ -2,7 +2,7 @@ pub mod commands;
 pub mod utils;
 pub mod object_store;
 
-use Chrono::{DateTime, Utc};
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -37,3 +37,34 @@ pub struct Commit {
    pub timestamp: DateTime<Utc>,
 }
 
+#[derive(Debug, Clone)]
+pub struct Repository {
+    pub git_dir: PathBuf,
+    pub work_dir: PathBuf,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Index {
+    pub entries: HashMap<String, IndexEntry>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IndexEntry {
+    pub hash: String,
+    pub mode: String,
+    pub path: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Branch {
+    pub name: String,
+    pub commit: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Remote {
+    pub name: String,
+    pub url: String,
+}
+
+pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
