@@ -1,7 +1,19 @@
 use crate::{Index, IndexEntry, Repository, Result, object_store::ObjectStore, utils};
 use std::fs;
-use clap::builder::Str;
+use std::path::Path;
 use walkdir::WalkDir;
+
+
+fn path_contains_excluded_folders(path: &Path) -> bool {
+    for component in path.components() {
+        if let Some(folder_name) = component.as_os_str().to_str() {
+            if folder_name.starts_with('.') || folder_name == "target" {
+                return true; 
+            }
+        }
+    }
+    false 
+}
 
 pub fn add(repo: &Repository, paths: Vec<String>) -> Result<()> {
     let mut index = utils::load_index(repo)?;
@@ -12,6 +24,7 @@ pub fn add(repo: &Repository, paths: Vec<String>) -> Result<()> {
             for entry in WalkDir::new(&repo.work_dir)
                  .into_iter()
                  .filter_map(|e| e.ok())
+                 .filter(|e| !path_contains_excluded_folders(e.path()))
                  .filter(|e| e.file_type().is_file())
                  {
                     let path = entry.path();
@@ -72,4 +85,5 @@ pub fn add_file_to_index(
         }
     );
     Ok(())
+    
 }
