@@ -32,7 +32,7 @@ pub fn get_repository(work_dir: Option<PathBuf>) -> Result<Repository> {
 
 pub fn load_index(repo: &Repository) -> Result<Index> {
     let index_path = repo.git_dir.join("index");
-    if !index_path.exists() {
+    if index_path.exists() {
         let content = fs::read_to_string(index_path)?;
         let index: Index = serde_json::from_str(&content)?;
         Ok(index)

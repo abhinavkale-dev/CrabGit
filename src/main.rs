@@ -1,5 +1,5 @@
 use clap::{Parser, Subcommand};
-use CrabGit::{Result, commands};
+use CrabGit::{Result, commands, utils};
 use std::path::PathBuf;
 
 #[derive(Parser)]
@@ -17,6 +17,21 @@ enum Commands {
         #[arg(help = "Directory to initialize")]
         path: Option<PathBuf>
     },
+
+    Add {
+        #[arg(help = "Files to add")]
+        paths: Vec<String>
+    },
+
+    Commit {
+        #[arg(help = "Commit message")]
+        message: String,
+        
+        #[arg(short, long, help = "Author name")]
+        author: Option<String>
+    },
+
+    Status 
 }
 
 fn main() -> Result<()> {
@@ -25,6 +40,21 @@ fn main() -> Result<()> {
     match cli.command {
         Commands::Init { path } => {
             commands::init(path)?;
+        }
+
+        Commands::Add { paths } => {
+            let repo = utils::get_repository(None)?;
+            commands::add(&repo, paths)?;
+        }
+
+        Commands::Commit { message, author } => {
+            let repo = utils::get_repository(None)?;
+            commands::commit(&repo, message, author)?;
+        }
+
+        Commands::Status => {
+            let repo = utils::get_repository(None)?;
+            commands::status(&repo)?;
         }
     }
     Ok(())
