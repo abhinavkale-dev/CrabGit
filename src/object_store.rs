@@ -1,13 +1,10 @@
 use crate::{Blob, Tree, Commit, Result, Repository};
 use sha2::{Sha256, Digest};
-use core::hash;
-use std::fmt::format;
 use std::fs;
 use flate2::Compression;
 use flate2::write::ZlibEncoder;
 use flate2::read::ZlibDecoder;
 use std::io::{Read, Write};
-use std::path::Path;
 
 pub struct  ObjectStore {
     objects_dir: std::path::PathBuf,
@@ -104,10 +101,5 @@ impl ObjectStore {
         let obj_path = self.objects_dir.join(dir_name).join(file_name);
         obj_path.exists()
     }
-    
-
-
-
-
 
 }

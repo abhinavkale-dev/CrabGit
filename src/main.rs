@@ -31,7 +31,12 @@ enum Commands {
         author: Option<String>
     },
 
-    Status 
+    Status,
+
+    Log {
+        #[arg(short, long, help = "Maximum number of commits to display")]
+        max_count: Option<usize>
+    }
 }
 
 fn main() -> Result<()> {
@@ -55,6 +60,11 @@ fn main() -> Result<()> {
         Commands::Status => {
             let repo = utils::get_repository(None)?;
             commands::status(&repo)?;
+        }
+
+        Commands::Log { max_count } => {
+            let repo = utils::get_repository(None)?;
+            commands::log(&repo, max_count)?;
         }
     }
     Ok(())
