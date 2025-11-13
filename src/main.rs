@@ -36,6 +36,14 @@ enum Commands {
     Log {
         #[arg(short, long, help = "Maximum number of commits to display")]
         max_count: Option<usize>
+    },
+
+    Branch {
+        #[arg(help = "Branch name")]
+        name: Option<String>,
+        
+        #[arg(short, long, help = "Delete branch")]
+        delete: bool
     }
 }
 
@@ -65,6 +73,11 @@ fn main() -> Result<()> {
         Commands::Log { max_count } => {
             let repo = utils::get_repository(None)?;
             commands::log(&repo, max_count)?;
+        }
+
+        Commands::Branch { name, delete } => {
+            let repo = utils::get_repository(None)?;
+            commands::branch(&repo, name, delete)?;
         }
     }
     Ok(())
