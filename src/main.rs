@@ -44,6 +44,11 @@ enum Commands {
         
         #[arg(short, long, help = "Delete branch")]
         delete: bool
+    },
+
+    Diff {
+        #[arg(help = "Files to diff (optional)")]
+        paths: Vec<String>
     }
 }
 
@@ -78,6 +83,11 @@ fn main() -> Result<()> {
         Commands::Branch { name, delete } => {
             let repo = utils::get_repository(None)?;
             commands::branch(&repo, name, delete)?;
+        }
+
+        Commands::Diff { paths } => {
+            let repo = utils::get_repository(None)?;
+            commands::diff(&repo, paths)?;
         }
     }
     Ok(())

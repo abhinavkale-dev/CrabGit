@@ -5,6 +5,7 @@ pub mod commit;
 pub mod log;
 pub mod branch;
 pub mod checkout;
+pub mod diff;
 
 pub use init::*;
 pub use add::*;
@@ -13,3 +14,4 @@ pub use commit::*;
 pub use log::*;
 pub use branch::*;
 pub use checkout::*;
+pub use diff::*;
