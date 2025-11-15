@@ -74,6 +74,21 @@ enum Commands {
     }
 }
 
+fn execute_with_repo(command: Commands) -> Result<()> {
+    let repo = utils::get_repository(None)?;
+    
+    match command {
+        Commands::Add { paths } => commands::add(&repo, paths),
+        Commands::Commit { message, author } => commands::commit(&repo, message, author),
+        Commands::Status => commands::status(&repo),
+        Commands::Log { max_count } => commands::log(&repo, max_count),
+        Commands::Branch { name, delete } => commands::branch(&repo, name, delete),
+        Commands::Diff { paths } => commands::diff(&repo, paths),
+        Commands::Checkout { branch_or_commit } => commands::checkout(&repo, branch_or_commit),
+        _ => Ok(()),
+    }
+}
+
 fn main() -> Result<()> {
     let args: Vec<String> = std::env::args().collect();
     
@@ -84,47 +99,13 @@ fn main() -> Result<()> {
         println!("{}Run with --help for more information{}", RUST_COLOR, RESET_COLOR);
         return Ok(());
     }
+    
     let cli = Cli::parse();
 
-    match cli.command {
-        Commands::Init { path } => {
-            commands::init(path)?;
-        }
-
-        Commands::Add { paths } => {
-            let repo = utils::get_repository(None)?;
-            commands::add(&repo, paths)?;
-        }
-
-        Commands::Commit { message, author } => {
-            let repo = utils::get_repository(None)?;
-            commands::commit(&repo, message, author)?;
-        }
-
-        Commands::Status => {
-            let repo = utils::get_repository(None)?;
-            commands::status(&repo)?;
-        }
-
-        Commands::Log { max_count } => {
-            let repo = utils::get_repository(None)?;
-            commands::log(&repo, max_count)?;
-        }
-
-        Commands::Branch { name, delete } => {
-            let repo = utils::get_repository(None)?;
-            commands::branch(&repo, name, delete)?;
-        }
-
-        Commands::Diff { paths } => {
-            let repo = utils::get_repository(None)?;
-            commands::diff(&repo, paths)?;
-        }
-
-        Commands::Checkout { branch_or_commit } => {
-            let repo = utils::get_repository(None)?;
-            commands::checkout(&repo, branch_or_commit)?;
-        }
+    if let Commands::Init { path } = cli.command {
+        return commands::init(path);
     }
-    Ok(())
+
+
+    execute_with_repo(cli.command)
 }
