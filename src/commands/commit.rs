@@ -58,6 +58,8 @@ pub fn commit(repo: &Repository, message: String, author: Option<String>) -> Res
 
     utils::update_branch(repo, &current_branch, &commit_hash)?;
 
+    utils::save_index(repo, &crate::Index { entries: HashMap::new() })?;
+
     println!("Created commit {}", &commit_hash[..8]);
     Ok(())
 }

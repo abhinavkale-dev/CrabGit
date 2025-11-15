@@ -39,7 +39,7 @@ fn restore_working_directory(repo: &Repository, commit_hash: &str) -> Result<()>
         let entry = entry?;
         let path = entry.path();
 
-        if path.file_name().unwrap() == ".mini_git" {
+        if path.file_name().unwrap() == ".crab_git" {
             continue;
         }
 
