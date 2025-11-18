@@ -4,7 +4,7 @@
 
 Building Git from the ground up in Rust. CrabGit is a local-only implementation that helps you understand how Git actually works under the hood, no network complexity, just the core fundamentals.
 
-## ✅ Current Features
+## Current Features
 
 ### Repository Management
 - `init` - Initialize a new repository
@@ -22,7 +22,7 @@ Building Git from the ground up in Rust. CrabGit is a local-only implementation 
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ### Layered Architecture Overview
 
@@ -30,23 +30,23 @@ CrabGit follows a **four-layer architecture**:
 
 ```
 ┌─────────────────────────────────────────┐
-│  🖥️ User Interface Layer                │
+│  User Interface Layer                │
 │  (CLI Interface with clap Parser)       │
 └────────────────┬────────────────────────┘
                  │
 ┌────────────────▼────────────────────────┐
-│  ⚙️ Commands Layer                      │
+│  Commands Layer                      │
 │  (init, add, commit, status, log,       │
 │   branch, checkout, diff)               │
 └────────────────┬────────────────────────┘
                  │
 ┌────────────────▼────────────────────────┐
-│  🔧 Core Layer                          │
+│  Core Layer                          │
 │  (Repository Utils + Object Store)      │
 └────────────────┬────────────────────────┘
                  │
 ┌────────────────▼────────────────────────┐
-│  📦 Data Models                         │
+│  Data Models                         │
 │  (Blob, Tree, Commit, Index, Branch)    │
 └─────────────────────────────────────────┘
 ```
@@ -61,7 +61,7 @@ CrabGit follows a **four-layer architecture**:
 
 ---
 
-## 🔄 Complete Data Flow: Add → Commit Workflow
+## Complete Data Flow: Add → Commit Workflow
 
 Understanding how data flows through the system is crucial to grasping Git's design:
 
@@ -107,7 +107,7 @@ Branch References (HEAD)
 
 ---
 
-## 📦 Object Store Structure
+## Object Store Structure
 
 The `.crab_git` directory is where Git stores everything about your repository:
 
@@ -157,7 +157,7 @@ The `.crab_git` directory is where Git stores everything about your repository:
 
 ---
 
-## 🔗 Data Models & Type Relationships
+## Data Models & Type Relationships
 
 ### Core Types
 
@@ -247,7 +247,7 @@ Commit Chain:
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -351,7 +351,7 @@ echo "Hello, CrabGit!" > hello.txt
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 CrabGit/
@@ -376,7 +376,7 @@ CrabGit/
 
 ---
 
-## 🔧 Architecture Details
+## Architecture Details
 
 ### How Commands Execute
 
@@ -415,7 +415,7 @@ Return object to command
 
 ---
 
-## 🛠️ Dependencies
+## Dependencies
 
 - `sha2 0.10` - SHA256 hashing
 - `serde 1.0` - Serialization framework
@@ -427,7 +427,7 @@ Return object to command
 
 ---
 
-## 📝 License
+## License
 
 MIT License - Feel free to use this for learning and experimentation.
 
