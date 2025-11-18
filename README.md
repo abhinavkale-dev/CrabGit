@@ -1,5 +1,7 @@
 # 🦀 CrabGit - Git Implementation from Scratch in Rust
 
+![CrabGit Banner](./public/banner.png)
+
 Building Git from the ground up in Rust. CrabGit is a local-only implementation that helps you understand how Git actually works under the hood, no network complexity, just the core fundamentals.
 
 ## ✅ Current Features
